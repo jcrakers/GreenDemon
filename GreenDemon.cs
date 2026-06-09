@@ -13,8 +13,6 @@ public class GreenDemonData : MonoBehaviour
     private static PlayerMovement playerMovement;
     private static Stats stats;
 
-    private float chaseSpeed = 2f;
-
     private bool isChasing = false;
 
     public static void CreateGreenDemon(float x = 0, float y = 0, float z = 0)
@@ -202,13 +200,14 @@ public class GreenDemonData : MonoBehaviour
         }
     
         // 2. Calculate the current distance between the demon and the player
-        float distance = Vector3.Distance(greenDemon.transform.position, player.transform.position);
+        Vector3 target = player.transform.position + new Vector3(0f, 1f, 0f);
+        float distance = Vector3.Distance(greenDemon.transform.position, target);
 
         // 3. Define your rubber band boundaries
         float minSpeed = 3f;       // Speed when right next to the player
         float maxSpeed = 100f;        // Catch-up speed when the player is far away
         float closeDistance = 1.5f;    // Distance where minimum speed applies
-        float farDistance = 100f;     // Distance where maximum speed applies
+        float farDistance = 150f;     // Distance where maximum speed applies
 
         // 4. Calculate a percentage (0.0 to 1.0) of how far the player is within our thresholds
         // InverseLerp outputs 0 if distance <= closeDistance, and 1 if distance >= farDistance
