@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net35</TargetFramework>
+    <AssemblyName>GreenDemon</AssemblyName>
+    <Product>GreenDemon</Product>
+    <Version>1.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <RestoreAdditionalProjectSources>
+      https://api.nuget.org/v3/index.json;
+      https://nuget.bepinex.dev/v3/index.json;
+      https://nuget.samboy.dev/v3/index.json
+    </RestoreAdditionalProjectSources>
+    <RootNamespace>GreenDemon</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+    <PackageReference Include="UnityEngine.Modules" Version="4.6.1" IncludeAssets="compile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Assembly-UnityScript">
+      <HintPath>Libs\Assembly-UnityScript.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+	<Target Name="CopyDLLs" AfterTargets="Build">
+    	<Message Text="Executing CopyDLLs task" Importance="High" />
+    	<Copy SourceFiles="$(TargetDir)$(ProjectName).dll;" DestinationFolder="D:\Users\John\Documents\Games\Le Fantabulous\BepInEx\plugins\GreenDemon" />
+    	<ItemGroup>
+    		<ResourceFiles Include="Resources\**\*" />
+    	</ItemGroup>
+    	<Copy SourceFiles="@(ResourceFiles)" DestinationFolder="D:\Users\John\Documents\Games\Le Fantabulous\BepInEx\plugins\GreenDemon\Resources\%(RecursiveDir)" />
+    	<Message Text="Copied build files" Importance="High" />
+  	</Target>
+</Project>
